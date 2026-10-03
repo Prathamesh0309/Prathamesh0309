@@ -66,4 +66,4 @@ Retrieval	ChromaDB, embeddings, chunking strategies
 ML & CV	scikit-learn, FastText, YOLOv8, MediaPipe, ByteTrack, OpenCV, pandas, NumPy
 Backend & Tools	FastAPI, Streamlit, Selenium, Git, Linux
 
-📫 Open to Agentic AI / ML Engineer and Forward Deployed Engineer roles in the US. Reach me on [LinkedIn](https://www.linkedin.com/in/prathamesh-deshpande-7b8b691a6/).
+### 📫 Open to Agentic AI / ML Engineer and Forward Deployed Engineer roles in the US. Reach me on [LinkedIn](https://www.linkedin.com/in/prathamesh-deshpande-7b8b691a6/).
