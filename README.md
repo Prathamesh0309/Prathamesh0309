@@ -1,108 +1,69 @@
 # Hi, I'm Prathamesh Deshpande 👋
 
-**Python Engineer · Applied ML · Agentic AI · MS Information Science (Machine Learning)**
+#### Agentic AI / ML Engineer · MS Information Science (Machine Learning), University of Arizona · 3 years of Python backend and automation at TCS
 
-I build end-to-end ML systems, agentic AI pipelines, and automation tools — from feature engineering and model training to multi-agent orchestration.  
-3+ years of industry experience at TCS, currently deepening ML and AI foundations through research and hands-on projects.
+I build LLM agents that do real work, including retrieval pipelines, tool calling over MCP, and multi-step orchestration. I also build the evaluation harnesses that show whether those agents actually work.
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=flat&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/prathamesh-deshpande-7b8b691a6/)
-[![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white)](https://github.com/Prathamesh0309)
-[![Profile Views](https://komarev.com/ghpvc/?username=Prathamesh0309&style=flat&color=blue)](https://github.com/Prathamesh0309)
+[LinkedIn](https://www.linkedin.com/in/prathamesh-deshpande-7b8b691a6/)
 
----
-
-## 🔬 What I'm Working On
-
-- **Personal Research Assistant Agent** — A multi-agent system that autonomously searches the web, reads articles, critiques its own findings, and produces structured reports with citations. Built on ReAct loops, tool use, and vector memory.
-- **Suspicious URL Detection** — Classifying malicious URLs using lexical and statistical features. No external APIs, pure feature engineering with `scikit-learn`.
-- **Surgical Suture Skill Analysis** *(Contributor)* — Data-driven evaluation of surgical technique using pose estimation and video understanding. Turning expert intuition into measurable signals using `YOLO · ByteTrack · MediaPipe · VideoMAE`.
-- Strengthening ML fundamentals through hands-on projects and writing cleaner, well-documented Python.
-
----
-
+## 🔬 Currently
+Research, CloudHubs Lab (Prof. Tomas Cerny, University of Arizona)
+CIMET: multi-agent, multi-language change impact analysis for microservice systems. I'm scoping a shared intermediate representation across Java, Node.js, C#, Go and Python.
+AridNova: secure LLM provider configuration (Ollama, local models, Azure OpenAI) across Python FastAPI microservices, with encrypted token storage in the Spring Boot / MongoDB backend.
+Hardening the RAG, MCP and evaluation layers of it-support-agent.
 ## 🚀 Featured Projects
+### 🛠️ IT Support Agent
 
-### 🗂️ Personal Research Assistant Agent
-> An agent that takes a research topic, autonomously searches the web, reads articles, deduces sub-questions, and produces a structured report — with citations.
+An agentic helpdesk that answers IT questions from a knowledge base and creates and tracks tickets through an MCP tool server.
 
-A fully agentic pipeline built on the **ReAct loop** pattern, with five specialized agents collaborating to go from raw query to polished report:
+Orchestration: Plan → Act → Respond loop with Gemini and schema-constrained tool routing, with two-layer ticket filtering that starts with deterministic rules
+RAG: ChromaDB with section-aware chunking, Gemini embeddings using separate document/query task types, query rewriting, and a relevance threshold that makes the agent refuse instead of guessing when context is weak
+MCP: stdio MCP server for ticket creation and status checks, with tickets persisted across server processes
+Evaluation: retrieval hit rate and MRR, refusal checks, and LLM-as-judge scoring with a separate judge model (0.95–1.0 on faithfulness and answer relevancy)
 
-| Agent | Role |
-|---|---|
-| 🧠 **Planner** | Decomposes the query into 4–6 focused sub-questions using chain-of-thought prompting |
-| 🔍 **Search Agent** | Calls Tavily API per sub-question, ranks URLs by relevance, selects links worth reading in full |
-| 📄 **Reader Agent** | Fetches full page content, chunks and summarizes it, stores results in a vector store (FAISS/Chroma) to avoid re-reading |
-| 🔁 **Critic Agent** | Reviews all gathered summaries, asks *"Is this enough?"* — if not, generates follow-up queries and loops back. This is the core ReAct cycle. |
-| ✍️ **Writer Agent** | Pulls from vector store, synthesizes a structured report with sections, bullet points, and inline citations |
+Python LangChain Gemini ChromaDB MCP RAG LLM Evaluation
 
-**Key concepts:** Multi-step planning · Tool use · Stateful memory · ReAct loop · Output formatting
+### 🔎 Research Agent
 
-`Python` `LangChain` `Tavily API` `FAISS` `Chroma` `OpenAI API` `ReAct` `Multi-Agent`
+Takes a research question and returns a structured, cited report.
 
----
+LangGraph pipeline: Planner → Searcher → Writer → Critic
+The Planner breaks the question into sub-questions, the Searcher gathers sources with Tavily, and the Writer drafts the report
+The Critic reviews the draft and sends it back through a conditional revision loop until it meets the bar
+Pydantic models keep every step's output structured and validated
 
-### 🔗 Suspicious URL Detection
-> Detecting malicious URLs purely through lexical and statistical feature engineering — no external threat feeds or blacklists.
+Python LangGraph Gemini Tavily Pydantic
 
-- Extracted URL-based features (length, entropy, special character ratios, subdomain depth, etc.)
-- Trained and evaluated multiple classifiers using `scikit-learn`
-- Focus on interpretability and low-latency inference
+### 🔗 Suspicious URL Predictor
 
-`Python` `scikit-learn` `pandas` `NumPy` `Feature Engineering`
+Zero-day malicious URL detection without relying on blocklists.
 
----
+Hybrid FastText classifier combined with heuristic scoring, trained on 500K+ URLs
+0.932 precision and recall
+Presented at the University of Arizona iShowcase
 
-### 🩺 Surgical Suture Skill Analysis *(Contributor)*
-> Analyzing surgical suture skills using computer vision and video understanding to evaluate technique and performance objectively.
+Python FastText pandas NumPy
 
-- Integrated object detection and multi-object tracking for instrument localization
-- Applied pose estimation to capture fine-grained hand and tool movements
-- Used video transformers (VideoMAE) for temporal action understanding
+### 🩺 Surgical Suture Skill Analysis (contributor)
 
-`Python` `YOLO` `ByteTrack` `MediaPipe` `VideoMAE` `OpenCV`
+Computer vision pipeline for objectively evaluating surgical suturing technique.
 
----
+Instrument detection and multi-object tracking with YOLOv8 and ByteTrack, plus hand pose estimation with MediaPipe
+0.98 mAP50 on ~1,560 annotated images
 
-### ⚙️ Workflow Automation Suite — TCS
-> Python-based automation scripts that reduced manual operational effort by ~X hours/week across [N] processes.
+Python YOLOv8 ByteTrack MediaPipe OpenCV
 
-- Built robust Selenium-based workflows to automate repetitive system tasks
-- Designed for reliability, easy handoff, and minimal maintenance overhead
+### 💼 Experience
 
-`Python` `Selenium` `System Automation`
+Tata Consultancy Services, Pune · ~3 years Python automation and backend systems for production client deployments.
 
----
+### 🛠️ Skills
+Area	Tools
+Languages	Python, SQL
+Agentic AI	LangGraph, LangChain, MCP, tool calling, RAG, LLM-as-judge evaluation
+LLMs	Gemini, Azure OpenAI, Ollama
+Retrieval	ChromaDB, embeddings, chunking strategies
+ML & CV	scikit-learn, FastText, YOLOv8, MediaPipe, ByteTrack, OpenCV, pandas, NumPy
+Backend & Tools	FastAPI, Streamlit, Selenium, Git, Linux
 
-## 🛠️ Skills
-
-| Category | Tools |
-|---|---|
-| **Languages** | Python, SQL |
-| **Agentic AI** | LangChain, ReAct, Multi-Agent Orchestration, Tool Use |
-| **ML & Data** | scikit-learn, TensorFlow (basic), pandas, NumPy |
-| **Computer Vision** | OpenCV, YOLO, MediaPipe, ByteTrack |
-| **Vector Stores** | FAISS, Chroma |
-| **Automation** | Selenium |
-| **Dev Tools** | Git, Linux |
-
----
-
-## 📊 GitHub Stats
-
-![Prathamesh's GitHub Stats](https://github-readme-stats.vercel.app/api?username=Prathamesh0309&show_icons=true&hide_border=true&count_private=true&theme=default)
-![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=Prathamesh0309&layout=compact&hide_border=true&theme=default)
-
----
-
-## 📌 Quick Facts
-
-- 🎓 MS in Information Science (Machine Learning focus)
-- 💼 3+ years at TCS building automation systems
-- 🤖 Building agentic AI systems with multi-step reasoning and tool use
-- 🔭 Currently contributing to applied ML research
-- 🌱 Interests: Agentic AI, feature engineering, applied ML, end-to-end system design
-- 📫 Reach me on [LinkedIn](https://www.linkedin.com/in/prathamesh-deshpande-7b8b691a6/)
-
----
-
-*"Build things that work. Document things that last."*
+📫 Open to Agentic AI / ML Engineer and Forward Deployed Engineer roles in the US. Reach me on [LinkedIn](https://www.linkedin.com/in/prathamesh-deshpande-7b8b691a6/).
