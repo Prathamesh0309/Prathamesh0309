@@ -1,10 +1,10 @@
-# Hi, I'm Prathamesh Deshpande 👋
+# Hi, I'm Prathamesh 👋
 
-**Python & ML Engineer · Agentic AI · M.S. Information Science (Machine Learning), University of Arizona**
+**Agentic AI / ML Engineer · M.S. Information Science (Machine Learning), University of Arizona · Tucson, AZ**
 
-I build agentic AI systems and applied ML pipelines: RAG assistants, tool-using agents, and classifiers with evaluation built in. Before grad school I spent 3+ years at TCS building Python automation and backend systems on production client deployments.
+I build LLM agents and applied ML systems, and I care about the unglamorous part: evaluation, failure handling, and knowing when the model shouldn't answer. Before grad school I spent 3+ years at TCS writing Python automation and backend systems for production client deployments, so I tend to ask "what happens when this breaks?" early.
 
-I'm looking for full-time Agentic AI / ML Engineer roles in the US.
+Looking for full-time Agentic AI / ML Engineer roles in the US.
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=flat&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/prathamesh-deshpande-7b8b691a6/)
 
@@ -12,71 +12,55 @@ I'm looking for full-time Agentic AI / ML Engineer roles in the US.
 
 ## Featured projects
 
-### 🛠️ [IT Support Agent](https://github.com/Prathamesh0309/it-support-agent): RAG + MCP tool orchestration
-> An IT helpdesk assistant that answers from a knowledge base and takes actions (tickets, Slack alerts) through an MCP server.
+### 🛠️ [IT Support Agent](https://github.com/Prathamesh0309/it-support-agent)
+RAG + MCP tool use for an IT helpdesk. Answers from a knowledge base, and opens tickets or pings Slack through a FastMCP server when a question needs action.
 
-- Ingests support documents into a local ChromaDB vector store and answers questions grounded in retrieved context (Gemini for embeddings and generation)
-- Plan → Act → Respond orchestrator that decides when to retrieve and when to call tools
-- FastMCP server exposing `create_ticket`, `check_ticket_status` and `notify_slack` (mock backends, easy to swap for real APIs)
-- Two-layer ticket filtering: deterministic rules first, LLM-as-judge for ambiguous cases
-- Evaluation script that scores answers against ground-truth test cases
+- Plan → Act → Respond orchestrator; routing decisions use schema-constrained JSON output instead of parsing free text
+- Retrieval has a relevance floor: if nothing in the knowledge base is close enough, it skips the LLM and escalates to a ticket
+- Evaluated retrieval (hit rate, MRR) separately from generation (LLM-as-judge on faithfulness and relevance, using a different model than the generator); 0.95–1.0 on the judged metrics
+- Includes out-of-scope test cases where the correct behaviour is to refuse
 
-`Python` `Gemini` `ChromaDB` `FastMCP` `RAG`
+`Python` `Gemini` `ChromaDB` `MCP` `RAG`
 
----
+### 🗂️ [Research Assistant Agent](https://github.com/Prathamesh0309/research_agent)
+A LangGraph pipeline that plans, searches, critiques its own coverage, and writes a cited report.
 
-### 🗂️ [Research Assistant Agent](https://github.com/Prathamesh0309/research_agent): LangGraph multi-agent pipeline
-> Takes a research question, searches the web, critiques its own coverage, and writes a cited report.
-
-- Four agents (Planner, Searcher, Critic, Writer) sharing one typed Pydantic state, orchestrated with LangGraph
-- ReAct-style loop: the Critic scores coverage and, if there are gaps, sends the Searcher back with a targeted gap summary (max 3 iterations)
-- Debugged unstable Critic scoring (0.70 → 0.47 across iterations) by windowing results and truncating content, trading some context for stable evaluation
+- Four nodes (Planner, Searcher, Critic, Writer) sharing one typed Pydantic state, with a conditional revision loop capped at 3 iterations
+- Fixed unstable Critic scoring (0.70 → 0.47 across iterations) by windowing results and truncating content; the README documents the tradeoff
+- Pipeline eval compares single-pass vs looped coverage across test queries
 
 `Python` `LangGraph` `Gemini` `Tavily` `Pydantic`
 
----
+### 🔗 [Suspicious URL Detection](https://github.com/Prathamesh0309/suspicious_url_predictor)
+Hybrid phishing/malware URL scoring (FastText + heuristics + infrastructure signals) with campaign clustering by shared SSL fingerprint and page-title hash.
 
-### 🔗 [Suspicious URL Detection Pipeline](https://github.com/Prathamesh0309/suspicious_url_predictor): hybrid ML + heuristics
-> Scores URLs for phishing and malware risk, then groups them into campaigns by shared infrastructure.
-
-- Hybrid risk score: FastText model (40%), heuristics such as typosquatting and suspicious TLDs (40%), infrastructure signals such as SSL and page title (20%)
-- Campaign clustering links domains that share SSL certificate fingerprints or page-title hashes
-- Streamlit dashboard, Docker setup, and data fetched from URLhaus and PhishStats plus Tranco as benign baseline
+- Trained on 500K+ URLs; 0.932 precision/recall; presented at UA iShowcase
+- Streamlit dashboard and Docker setup
 
 `Python` `FastText` `scikit-learn` `Streamlit` `Docker`
 
----
-
-### 🩺 Surgical Suture Skill Analysis *(Contributor)*
+### 🩺 Surgical Suture Skill Analysis *(contributor)*
 <!-- Add the link to the professor's repo here -->
-> Evaluating surgical technique with computer vision and video understanding.
+Computer vision pipeline for assessing suturing technique: YOLOv8 detection (0.98 mAP50 on ~1,560 annotated images), ByteTrack tracking, MediaPipe hand pose, and VideoMAE for temporal action understanding.
 
-- Integrated object detection and multi-object tracking for instrument localization
-- Applied pose estimation to capture fine-grained hand and tool movements
-- Used a video transformer (VideoMAE) for temporal action understanding
+`Python` `YOLOv8` `ByteTrack` `MediaPipe` `VideoMAE`
 
-`Python` `YOLO` `ByteTrack` `MediaPipe` `VideoMAE` `OpenCV`
-
----
-
-### Also built
-- **[Events Portal](https://github.com/Prathamesh0309/events-portal)**: Streamlit + MySQL app with sign-up/login, admin and user flows, event registration, and simulated payments
-- **Workflow automation at TCS**: Python and Selenium automation for repetitive operational tasks on production client deployments, built for reliability and easy handoff
+### Also
+- **[Events Portal](https://github.com/Prathamesh0309/data_warehouse_project)**: Streamlit + MySQL app with auth, admin and user flows, and simulated payments
+- **Research assistant, CloudHubs lab (Prof. Tomas Cerny)**: volunteer work on the AridNova project
 
 ---
 
-## 🛠️ Skills
+## Skills
 
-| Category | Tools |
+| | |
 | --- | --- |
 | **Languages** | Python, SQL |
-| **Agentic AI** | LangGraph, LangChain, ReAct, multi-agent orchestration, tool use, MCP (FastMCP) |
-| **LLMs & RAG** | Gemini API, ChromaDB, embeddings, retrieval, LLM-as-judge evaluation |
-| **ML & Data** | scikit-learn, FastText, pandas, NumPy, TensorFlow (basic) |
-| **Computer Vision** | OpenCV, YOLO, ByteTrack, MediaPipe, VideoMAE |
+| **Agentic AI** | LangGraph, LangChain, MCP (FastMCP), tool use, multi-agent orchestration, structured outputs |
+| **LLMs & RAG** | Gemini API, ChromaDB, embeddings, retrieval evaluation, LLM-as-judge |
+| **ML & CV** | scikit-learn, FastText, YOLOv8, MediaPipe, ByteTrack, OpenCV, pandas, NumPy |
 | **Engineering** | Docker, Streamlit, MySQL, Pydantic, Selenium, Git, Linux |
 
 ---
 
-## 📫 Contact
-[LinkedIn](https://www.linkedin.com/in/prathamesh-deshpande-7b8b691a6/)
+📫 [LinkedIn](https://www.linkedin.com/in/prathamesh-deshpande-7b8b691a6/)
